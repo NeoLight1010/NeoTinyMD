@@ -1,7 +1,10 @@
 [package]
 name = "neotinymd"
+authors = ["Anthony Suárez <neolight1010@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
+description = "(Neo) Tiny Markdown compiler written in Rust."
+homepage = "https://www.github.com/NeoLight1010/neotinymd"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
