@@ -1,6 +1,6 @@
 use std::{
     fs::File,
-    io::{BufRead, BufReader},
+    io::{BufRead, BufReader, Write},
     path::Path,
 };
 
@@ -69,10 +69,17 @@ fn parse_markdown_file(filename: &str) {
         }
     }
 
-    // Debug print
-    for line in compiled_lines {
-        print!("{}", line);
+    // Output to new file
+    let mut output_filename = String::from(&filename[..filename.len() - 3]);
+    output_filename.push_str(".html");
+
+    let mut output_file = File::create(output_filename).expect("[ERROR] Could not create output file!");
+
+    for line in &compiled_lines {
+        output_file.write_all(line.as_bytes()).expect("[ERROR] Could not write to output file!");
     }
+
+    println!("[INFO] Compilation complete!");
 }
 
 fn get_title() -> String {
