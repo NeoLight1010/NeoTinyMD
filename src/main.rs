@@ -17,7 +17,6 @@ fn parse_markdown_file(filename: &str) {
     // Start parsing
 
     let mut ptag = false;
-    let mut htag = false;
 
     let mut compiled_lines: Vec<String> = vec![];
 
@@ -31,18 +30,13 @@ fn parse_markdown_file(filename: &str) {
         match first_char {
             Some('#') => {
                 if ptag {
-                    output_line.push_str("</p>\n");
+                    output_line.push_str("</p>\n\n");
                     ptag = false;
                 }
 
-                if htag {
-                    output_line.push_str("</h1>\n");
-                    // htag = false;
-                }
-
-                htag = true;
-                output_line.push_str("\n\n<h1>");
+                output_line.push_str("<h1>");
                 output_line.push_str(&line[2..]);
+                output_line.push_str("</h1>\n");
             }
             _ => {
                 if !ptag {
@@ -56,15 +50,10 @@ fn parse_markdown_file(filename: &str) {
 
         if ptag {
             ptag = false;
-            output_line.push_str("</p>\n");
+            output_line.push_str("</p>\n\n");
         }
 
-        if htag {
-            htag = false;
-            output_line.push_str("</h1>\n");
-        }
-
-        if output_line != "<p></p>\n" {
+        if output_line != "<p></p>\n\n" {
             compiled_lines.push(output_line);
         }
     }
